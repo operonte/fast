@@ -38,6 +38,24 @@ _Próximamente..._
 - ✅ Linux
 - ✅ macOS
 
+## 📥 Descargar
+
+### Android APK
+
+Descarga la última versión de Fast para Android:
+
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge)](https://github.com/operonte/fast/releases/latest)
+
+**Instrucciones de instalación:**
+1. Descarga el archivo `app-release.apk` desde la sección [Releases](https://github.com/operonte/fast/releases)
+2. En tu dispositivo Android, ve a **Configuración > Seguridad**
+3. Activa **"Permitir instalación de aplicaciones de fuentes desconocidas"**
+4. Abre el archivo APK descargado e instala la aplicación
+
+### Otras plataformas
+
+Las versiones para iOS, Web, Windows, Linux y macOS estarán disponibles próximamente.
+
 ## 🔧 Requisitos
 
 - Flutter SDK (3.10.0 o superior)
