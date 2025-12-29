@@ -160,6 +160,9 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 - Mensajes predefinidos
 - Temas personalizables
 - Soporte para múltiples códigos de país
+- Pantalla "Acerca de" completa con contacto y política de privacidad
+- Soporte para mailto (correo electrónico)
+- Permisos y queries configurados para Android 11+ e iOS
 
 ---
 
