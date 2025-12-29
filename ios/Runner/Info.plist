@@ -49,6 +49,7 @@
 	<array>
 		<string>https</string>
 		<string>http</string>
+		<string>mailto</string>
 		<string>whatsapp</string>
 	</array>
 </dict>

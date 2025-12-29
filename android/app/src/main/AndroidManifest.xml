@@ -54,6 +54,12 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="http" />
         </intent>
+        <!-- Required for mailto: links (email) -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="mailto" />
+        </intent>
         <!-- WhatsApp packages for direct access -->
         <package android:name="com.whatsapp" />
         <package android:name="com.whatsapp.w4b" />
