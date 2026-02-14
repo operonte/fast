@@ -29,12 +29,12 @@ class ContactScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.email),
               title: const Text('Email'),
-              subtitle: const Text('contacto@ejemplo.com'),
-              onTap: () => launchUrl(Uri.parse('mailto:contacto@ejemplo.com')),
+              subtitle: const Text('cristian.bravo.droguett@gmail.com'),
+              onTap: () => launchUrl(Uri.parse('mailto:cristian.bravo.droguett@gmail.com')),
             ),
             const SizedBox(height: 8),
             Text(
-              'Edita el email en la pantalla Contacto del proyecto.',
+              'Contacto del desarrollador.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.outline,
                   ),

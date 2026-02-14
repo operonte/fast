@@ -39,7 +39,7 @@ flutter run
 
 ## Icono
 
-El icono de la app está en `assets/icon.png`. Se generan los launcher icons para Android con:
+El icono de la app está en `assets/icon.png`. Se generan los launcher icons para Android e iOS con:
 
 ```bash
 dart run flutter_launcher_icons
@@ -47,13 +47,8 @@ dart run flutter_launcher_icons
 
 ## Política de privacidad y términos (repo "releases")
 
-La app enlaza la **Política de privacidad** y los **Términos de uso** a tu repositorio **releases** en GitHub. En `lib/app_config.dart` sustituye `YOUR_GITHUB_USERNAME` por tu usuario de GitHub. En el repo **releases** crea la estructura:
-
-- `fast/PRIVACY.md` — texto de la política de privacidad.
-- `fast/TERMS.md` — texto de los términos de uso.
-
-Las pantallas "Política de privacidad" y "Términos de uso" abren esas URLs en el navegador.
+La app enlaza la **Política de privacidad** y los **Términos de uso** al repositorio [operonte/releases](https://github.com/operonte/releases) (carpeta `fast/`). Los archivos `PRIVACY.md` y `TERMS.md` están alojados allí; las pantallas correspondientes abren esas URLs en el navegador.
 
 ## Textos editables
 
-Puedes editar los textos de **Acerca de** y **Contacto** en `lib/screens/about_screen.dart` y `lib/screens/contact_screen.dart`.
+Puedes editar los textos de **Acerca de** en `lib/screens/about_screen.dart`. El contacto (email) está en `lib/screens/contact_screen.dart`.
