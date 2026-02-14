@@ -14,9 +14,28 @@ App Flutter para abrir WhatsApp al instante desde un número de teléfono. Pensa
 ## Cómo ejecutar
 
 ```bash
+git clone https://github.com/operonte/fast.git
+cd fast
 flutter pub get
 flutter run
 ```
+
+## Compilar APK
+
+```bash
+flutter build apk --release
+```
+
+El APK se genera en `build/app/outputs/flutter-apk/app-release.apk`
+
+### Descargar APK
+
+**[Descargar última versión](https://github.com/operonte/fast/releases/latest)**
+
+## Política de privacidad y términos
+
+- [Política de privacidad](https://github.com/operonte/releases/blob/main/fast/PRIVACY.md)
+- [Términos de uso](https://github.com/operonte/releases/blob/main/fast/TERMS.md)
 
 ## Dependencias principales
 
@@ -36,6 +55,7 @@ flutter run
 - `lib/services/storage_service.dart`: Historial, favoritos, preferencias.
 - `lib/services/whatsapp_service.dart`: Construcción de URL y apertura de WhatsApp.
 - `lib/screens/`: Splash, onboarding, home, settings, about, contact, privacy, terms.
+- `release/`: APK generados (también en [Releases](https://github.com/operonte/fast/releases)).
 
 ## Icono
 
@@ -45,10 +65,11 @@ El icono de la app está en `assets/icon.png`. Se generan los launcher icons par
 dart run flutter_launcher_icons
 ```
 
-## Política de privacidad y términos (repo "releases")
-
-La app enlaza la **Política de privacidad** y los **Términos de uso** al repositorio [operonte/releases](https://github.com/operonte/releases) (carpeta `fast/`). Los archivos `PRIVACY.md` y `TERMS.md` están alojados allí; las pantallas correspondientes abren esas URLs en el navegador.
-
 ## Textos editables
 
 Puedes editar los textos de **Acerca de** en `lib/screens/about_screen.dart`. El contacto (email) está en `lib/screens/contact_screen.dart`.
+
+## Desarrollador
+
+**Cristian Bravo Droguett**  
+cristian.bravo.droguett@gmail.com
