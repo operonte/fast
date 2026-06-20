@@ -1,0 +1,14 @@
+# Plantilla de configuración de firma para release.
+# Copia este archivo a `key.properties` y rellena con tus valores reales.
+# NUNCA subas key.properties ni el .jks al repositorio (están en .gitignore).
+#
+#   cp key.properties.example key.properties
+#
+# Genera tu keystore con:
+#   keytool -genkey -v -keystore upload-keystore.jks \
+#     -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+#
+storePassword=TU_STORE_PASSWORD
+keyPassword=TU_KEY_PASSWORD
+keyAlias=upload
+storeFile=../upload-keystore.jks

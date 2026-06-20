@@ -1,0 +1,17 @@
+gradle-wrapper.jar
+/.gradle
+/captures/
+/gradlew
+/gradlew.bat
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# Secretos de firma: NUNCA versionar (el repo es público).
+# El keystore real y key.properties viven en disco y se respaldan FUERA del repo.
+# Usa key.properties.example como plantilla.
+key.properties
+**/*.keystore
+**/*.jks
+**/*.p12
+**/*.p8
