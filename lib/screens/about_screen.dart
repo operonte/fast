@@ -39,17 +39,17 @@ class _AboutScreenState extends State<AboutScreen> {
             Text(
               'fasT',
               style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             const SizedBox(height: 8),
             if (_info != null)
               Text(
                 'Versión ${_info!.version}+${_info!.buildNumber}',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             const SizedBox(height: 24),
             Text(
@@ -62,8 +62,8 @@ class _AboutScreenState extends State<AboutScreen> {
               'Puedes editar este texto en la pantalla Acerca de del proyecto.',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
           ],
         ),

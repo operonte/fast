@@ -50,8 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final text = data?.text;
     if (text != null && text.trim().isNotEmpty) {
       _controller.text = text.trim();
-      _controller.selection =
-          TextSelection.collapsed(offset: _controller.text.length);
+      _controller.selection = TextSelection.collapsed(
+        offset: _controller.text.length,
+      );
     }
   }
 
@@ -92,7 +93,52 @@ class _HomeScreenState extends State<HomeScreen> {
     if (launched) {
       await appStorage.addToHistory(normalized);
     } else if (mounted) {
-      _showSnack('No se pudo abrir WhatsApp. Prueba en el navegador.');
+      await _showWhatsAppFallback(normalized);
+    }
+  }
+
+  /// Cuando no se pudo abrir WhatsApp (p. ej. no está instalado), ofrece
+  /// abrir la conversación en el navegador o instalar WhatsApp.
+  Future<void> _showWhatsAppFallback(String normalized) async {
+    final action = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('No se pudo abrir WhatsApp'),
+        content: const Text(
+          'Puede que WhatsApp no esté instalado. ¿Qué quieres hacer?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop('store'),
+            child: const Text('Instalar WhatsApp'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop('browser'),
+            child: const Text('Abrir en navegador'),
+          ),
+        ],
+      ),
+    );
+
+    final message = appStorage.optionalMessage;
+    switch (action) {
+      case 'browser':
+        final ok = await openWhatsAppInBrowser(
+          normalized,
+          text: message.isEmpty ? null : message,
+        );
+        if (ok) {
+          await appStorage.addToHistory(normalized);
+          if (mounted) setState(() {});
+        } else if (mounted) {
+          _showSnack('No se pudo abrir el navegador.');
+        }
+      case 'store':
+        await openWhatsAppStorePage();
     }
   }
 
@@ -124,24 +170,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _deleteFromHistory(String normalized) async {
+    final index = appStorage.history.indexOf(normalized);
     await appStorage.removeFromHistory(normalized);
     if (mounted) {
       setState(() {});
-      _showSnack('Eliminado del historial');
+      _showUndoSnack('Eliminado del historial', () async {
+        await appStorage.restoreHistory(normalized, index < 0 ? 0 : index);
+        if (mounted) setState(() {});
+      });
     }
   }
 
   Future<void> _deleteFavorite(String normalized) async {
+    final index = appStorage.favorites.indexOf(normalized);
     await appStorage.removeFavorite(normalized);
     if (mounted) {
       setState(() {});
-      _showSnack('Eliminado de favoritos');
+      _showUndoSnack('Eliminado de favoritos', () async {
+        await appStorage.restoreFavorite(normalized, index < 0 ? 0 : index);
+        if (mounted) setState(() {});
+      });
     }
   }
 
   Future<void> _editLabel(String normalized) async {
-    final controller =
-        TextEditingController(text: appStorage.labelFor(normalized) ?? '');
+    final controller = TextEditingController(
+      text: appStorage.labelFor(normalized) ?? '',
+    );
     final label = await showDialog<String?>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -179,11 +234,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ..showSnackBar(SnackBar(content: Text(message)));
   }
 
+  void _showUndoSnack(String message, Future<void> Function() onUndo) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          action: SnackBarAction(label: 'Deshacer', onPressed: onUndo),
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     final favorites = appStorage.favorites;
-    final history =
-        appStorage.history.where((n) => !favorites.contains(n)).toList();
+    final history = appStorage.history
+        .where((n) => !favorites.contains(n))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -232,8 +299,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   'Se usará: $_displayValue',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             const SizedBox(height: 16),
@@ -255,34 +322,44 @@ class _HomeScreenState extends State<HomeScreen> {
             if (favorites.isNotEmpty) ...[
               Text('Favoritos', style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 8),
-              ...favorites.take(10).map((n) => _NumberTile(
-                    key: ValueKey('fav_$n'),
-                    normalized: n,
-                    label: appStorage.labelFor(n),
-                    isFavorite: true,
-                    onTap: () => _openNumber(n),
-                    onShare: () => _shareNumber(n),
-                    onToggleFavorite: () => _toggleFavorite(n),
-                    onEditLabel: () => _editLabel(n),
-                    onDelete: () => _deleteFavorite(n),
-                  )),
+              ...favorites
+                  .take(10)
+                  .map(
+                    (n) => _NumberTile(
+                      key: ValueKey('fav_$n'),
+                      normalized: n,
+                      label: appStorage.labelFor(n),
+                      isFavorite: true,
+                      onTap: () => _openNumber(n),
+                      onShare: () => _shareNumber(n),
+                      onToggleFavorite: () => _toggleFavorite(n),
+                      onEditLabel: () => _editLabel(n),
+                      onDelete: () => _deleteFavorite(n),
+                    ),
+                  ),
               const SizedBox(height: 20),
             ],
             if (history.isNotEmpty) ...[
-              Text('Historial reciente',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                'Historial reciente',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
-              ...history.take(10).map((n) => _NumberTile(
-                    key: ValueKey('hist_$n'),
-                    normalized: n,
-                    label: appStorage.labelFor(n),
-                    isFavorite: false,
-                    onTap: () => _openNumber(n),
-                    onShare: () => _shareNumber(n),
-                    onToggleFavorite: () => _toggleFavorite(n),
-                    onEditLabel: () => _editLabel(n),
-                    onDelete: () => _deleteFromHistory(n),
-                  )),
+              ...history
+                  .take(10)
+                  .map(
+                    (n) => _NumberTile(
+                      key: ValueKey('hist_$n'),
+                      normalized: n,
+                      label: appStorage.labelFor(n),
+                      isFavorite: false,
+                      onTap: () => _openNumber(n),
+                      onShare: () => _shareNumber(n),
+                      onToggleFavorite: () => _toggleFavorite(n),
+                      onEditLabel: () => _editLabel(n),
+                      onDelete: () => _deleteFromHistory(n),
+                    ),
+                  ),
             ],
           ],
         ),
@@ -327,8 +404,10 @@ class _NumberTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.errorContainer,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(Icons.delete,
-            color: Theme.of(context).colorScheme.onErrorContainer),
+        child: Icon(
+          Icons.delete,
+          color: Theme.of(context).colorScheme.onErrorContainer,
+        ),
       ),
       onDismissed: (_) => onDelete(),
       child: Card(

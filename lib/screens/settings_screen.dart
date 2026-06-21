@@ -31,7 +31,9 @@ class SettingsScreen extends StatelessWidget {
             leading: const Icon(Icons.message),
             title: const Text('Mensaje inicial opcional'),
             subtitle: Text(
-              appStorage.optionalMessage.isEmpty ? 'Ninguno' : appStorage.optionalMessage,
+              appStorage.optionalMessage.isEmpty
+                  ? 'Ninguno'
+                  : appStorage.optionalMessage,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -50,12 +52,14 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Limpiar historial'),
-            onTap: () => _confirmClear(context, 'historial', appStorage.clearHistory),
+            onTap: () =>
+                _confirmClear(context, 'historial', appStorage.clearHistory),
           ),
           ListTile(
             leading: const Icon(Icons.star),
             title: const Text('Limpiar favoritos'),
-            onTap: () => _confirmClear(context, 'favoritos', appStorage.clearFavorites),
+            onTap: () =>
+                _confirmClear(context, 'favoritos', appStorage.clearFavorites),
           ),
           const Divider(height: 1),
           const _SectionTitle(title: 'Información'),
@@ -114,18 +118,9 @@ class SettingsScreen extends StatelessWidget {
           child: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RadioListTile<String>(
-                title: Text('Sistema'),
-                value: 'system',
-              ),
-              RadioListTile<String>(
-                title: Text('Claro'),
-                value: 'light',
-              ),
-              RadioListTile<String>(
-                title: Text('Oscuro'),
-                value: 'dark',
-              ),
+              RadioListTile<String>(title: Text('Sistema'), value: 'system'),
+              RadioListTile<String>(title: Text('Claro'), value: 'light'),
+              RadioListTile<String>(title: Text('Oscuro'), value: 'dark'),
             ],
           ),
         ),
@@ -164,7 +159,11 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _confirmClear(BuildContext context, String name, Future<void> Function() clear) async {
+  Future<void> _confirmClear(
+    BuildContext context,
+    String name,
+    Future<void> Function() clear,
+  ) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -198,9 +197,9 @@ class _SectionTitle extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold,
-            ),
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

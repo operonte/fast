@@ -34,17 +34,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   _Page(
                     icon: Icons.chat_bubble_outline,
                     title: 'Abre WhatsApp al instante',
-                    body: 'Escribe un número de teléfono y toca el botón para abrir una conversación en WhatsApp.',
+                    body:
+                        'Escribe un número de teléfono y toca el botón para abrir una conversación en WhatsApp.',
                   ),
                   _Page(
                     icon: Icons.public,
                     title: 'Formato Chile (56)',
-                    body: 'Si no escribes el código de país, la app agrega 56 automáticamente. Ejemplo: 9 2004 7008 → 56 9 2004 7008.',
+                    body:
+                        'Si no escribes el código de país, la app agrega 56 automáticamente. Ejemplo: 9 2004 7008 → 56 9 2004 7008.',
                   ),
                   _Page(
                     icon: Icons.touch_app,
                     title: 'Listo para usar',
-                    body: 'También puedes usar el historial y favoritos para volver a contactos recientes.',
+                    body:
+                        'También puedes usar el historial y favoritos para volver a contactos recientes.',
                   ),
                 ],
               ),
@@ -76,7 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           shape: BoxShape.circle,
                           color: _currentPage == i
                               ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                              : Theme.of(
+                                  context,
+                                ).colorScheme.outline.withValues(alpha: 0.3),
                         ),
                       );
                     }),
@@ -123,15 +128,17 @@ class _Page extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           Text(
             body,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),

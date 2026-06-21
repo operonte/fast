@@ -30,14 +30,16 @@ class ContactScreen extends StatelessWidget {
               leading: const Icon(Icons.email),
               title: const Text('Email'),
               subtitle: const Text('cristian.bravo.droguett@gmail.com'),
-              onTap: () => launchUrl(Uri.parse('mailto:cristian.bravo.droguett@gmail.com')),
+              onTap: () => launchUrl(
+                Uri.parse('mailto:cristian.bravo.droguett@gmail.com'),
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Contacto del desarrollador.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
           ],
         ),

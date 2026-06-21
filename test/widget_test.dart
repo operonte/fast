@@ -13,15 +13,9 @@ void main() {
     appStorage = StorageService(prefs);
   });
 
-  testWidgets('Arranca en splash y navega al onboarding', (tester) async {
+  testWidgets('Arranca y navega al onboarding al instante', (tester) async {
     await tester.pumpWidget(const FastApp());
-    await tester.pump();
-
-    // Splash visible.
-    expect(find.text('fasT'), findsWidgets);
-
-    // Deja que el timer del splash dispare y se complete la navegación.
-    await tester.pump(const Duration(milliseconds: 1300));
+    // El splash navega tras el primer frame (sin esperas artificiales).
     await tester.pumpAndSettle();
 
     // Sin onboarding previo => primera pantalla del tutorial.

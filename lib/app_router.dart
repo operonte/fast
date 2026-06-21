@@ -16,13 +16,28 @@ GoRouter createAppRouter() {
     navigatorKey: _rootKey,
     initialLocation: '/splash',
     routes: [
-      GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
-      GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingScreen()),
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingScreen(),
+      ),
       GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-      GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
       GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
-      GoRoute(path: '/contact', builder: (context, state) => const ContactScreen()),
-      GoRoute(path: '/privacy', builder: (context, state) => const PrivacyScreen()),
+      GoRoute(
+        path: '/contact',
+        builder: (context, state) => const ContactScreen(),
+      ),
+      GoRoute(
+        path: '/privacy',
+        builder: (context, state) => const PrivacyScreen(),
+      ),
       GoRoute(path: '/terms', builder: (context, state) => const TermsScreen()),
     ],
   );

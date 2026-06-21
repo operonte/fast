@@ -30,10 +30,7 @@ void main() {
 
   group('validateChileMobile', () {
     test('válido: 56 + 9 dígitos empezando en 9', () {
-      expect(
-        validateChileMobile('56920047008'),
-        PhoneValidationResult.valid,
-      );
+      expect(validateChileMobile('56920047008'), PhoneValidationResult.valid);
     });
 
     test('vacío', () {

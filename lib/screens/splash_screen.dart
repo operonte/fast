@@ -14,17 +14,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigate();
+    // Navega en cuanto se pinta el primer frame: arranque instantáneo, sin
+    // esperas artificiales (coherente con el nombre "fasT").
+    WidgetsBinding.instance.addPostFrameCallback((_) => _navigate());
   }
 
-  Future<void> _navigate() async {
-    await Future.delayed(const Duration(milliseconds: 1200));
+  void _navigate() {
     if (!mounted) return;
-    if (appStorage.onboardingDone) {
-      context.go('/home');
-    } else {
-      context.go('/onboarding');
-    }
+    context.go(appStorage.onboardingDone ? '/home' : '/onboarding');
   }
 
   @override
@@ -50,16 +47,16 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 'fasT',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 'WhatsApp directo',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),

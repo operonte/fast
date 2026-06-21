@@ -64,6 +64,16 @@ class StorageService {
     }
   }
 
+  /// Reinserta un número en el historial en su posición original (para "Deshacer").
+  Future<void> restoreHistory(String normalizedPhone, int index) async {
+    _history.remove(normalizedPhone);
+    _history.insert(index.clamp(0, _history.length), normalizedPhone);
+    if (_history.length > _maxHistory) {
+      _history = _history.sublist(0, _maxHistory);
+    }
+    await _persistList(_keyHistory, _history);
+  }
+
   Future<void> clearHistory() async {
     _history = [];
     await _prefs.remove(_keyHistory);
@@ -89,6 +99,16 @@ class StorageService {
     if (_favorites.remove(normalizedPhone)) {
       await _persistList(_keyFavorites, _favorites);
     }
+  }
+
+  /// Reinserta un favorito en su posición original (para "Deshacer").
+  Future<void> restoreFavorite(String normalizedPhone, int index) async {
+    _favorites.remove(normalizedPhone);
+    _favorites.insert(index.clamp(0, _favorites.length), normalizedPhone);
+    if (_favorites.length > _maxFavorites) {
+      _favorites = _favorites.sublist(0, _maxFavorites);
+    }
+    await _persistList(_keyFavorites, _favorites);
   }
 
   Future<void> clearFavorites() async {

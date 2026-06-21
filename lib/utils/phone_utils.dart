@@ -85,13 +85,7 @@ PhoneValidationResult validateChileMobile(String normalized) {
   return PhoneValidationResult.valid;
 }
 
-enum PhoneValidationResult {
-  valid,
-  empty,
-  invalid,
-  wrongLength,
-  notMobile,
-}
+enum PhoneValidationResult { valid, empty, invalid, wrongLength, notMobile }
 
 extension PhoneValidationResultMessage on PhoneValidationResult {
   String get message {

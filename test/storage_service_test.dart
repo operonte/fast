@@ -2,7 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fast/services/storage_service.dart';
 
-Future<StorageService> _newService([Map<String, Object> initial = const {}]) async {
+Future<StorageService> _newService([
+  Map<String, Object> initial = const {},
+]) async {
   SharedPreferences.setMockInitialValues(initial);
   final prefs = await SharedPreferences.getInstance();
   return StorageService(prefs);
@@ -26,6 +28,16 @@ void main() {
       await s.addToHistory('56922222222');
       await s.removeFromHistory('56911111111');
       expect(s.history, ['56922222222']);
+    });
+
+    test('restaura en su posición original (deshacer)', () async {
+      final s = await _newService();
+      await s.addToHistory('56933333333');
+      await s.addToHistory('56922222222');
+      await s.addToHistory('56911111111'); // [111, 222, 333]
+      await s.removeFromHistory('56922222222'); // [111, 333]
+      await s.restoreHistory('56922222222', 1); // vuelve al medio
+      expect(s.history, ['56911111111', '56922222222', '56933333333']);
     });
 
     test('limpia todo', () async {
@@ -56,6 +68,16 @@ void main() {
       await s.addFavorite('56911111111');
       await s.addFavorite('56911111111');
       expect(s.favorites.length, 1);
+    });
+
+    test('restaura en su posición original (deshacer)', () async {
+      final s = await _newService();
+      await s.addFavorite('56933333333');
+      await s.addFavorite('56922222222');
+      await s.addFavorite('56911111111'); // [111, 222, 333]
+      await s.removeFavorite('56933333333'); // [111, 222]
+      await s.restoreFavorite('56933333333', 2); // vuelve al final
+      expect(s.favorites, ['56911111111', '56922222222', '56933333333']);
     });
   });
 
