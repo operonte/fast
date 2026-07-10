@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app_config.dart';
 
-/// Términos de uso: enlace a GitHub Pages (abre en navegador externo).
+/// Términos de uso: enlace al portfolio en Firebase Hosting (abre en navegador externo).
 class TermsScreen extends StatelessWidget {
   const TermsScreen({super.key});
 
@@ -53,7 +53,7 @@ class TermsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Los términos de uso de fasT se encuentran alojados en el repositorio releases.',
+              'Los términos de uso de fasT se encuentran alojados en el portfolio del desarrollador.',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),

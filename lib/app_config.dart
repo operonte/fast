@@ -1,5 +1,5 @@
-/// Políticas y términos publicados en GitHub Pages (igual que horasmedicas).
+/// Políticas y términos publicados en el portfolio (Firebase Hosting).
 const String privacyPolicyUrl =
-    'https://operonte.github.io/releases/fast/policies/privacy_policy.html';
+    'https://cristianbravo-dev.web.app/es/privacy/fast';
 const String termsOfUseUrl =
-    'https://operonte.github.io/releases/fast/policies/terms_of_use.html';
+    'https://cristianbravo-dev.web.app/es/privacy/fast#terms';

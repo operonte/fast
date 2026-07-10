@@ -34,8 +34,8 @@ El APK se genera en `build/app/outputs/flutter-apk/app-release.apk`
 
 ## Política de privacidad y términos
 
-- [Política de privacidad](https://operonte.github.io/releases/fast/policies/privacy_policy.html)
-- [Términos de uso](https://operonte.github.io/releases/fast/policies/terms_of_use.html)
+- [Política de privacidad](https://cristianbravo-dev.web.app/es/privacy/fast)
+- [Términos de uso](https://cristianbravo-dev.web.app/es/privacy/fast#terms)
 
 ## Dependencias principales
 

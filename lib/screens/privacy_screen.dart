@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app_config.dart';
 
-/// Política de privacidad: enlace a GitHub Pages (abre en navegador externo).
+/// Política de privacidad: enlace al portfolio en Firebase Hosting (abre en navegador externo).
 class PrivacyScreen extends StatelessWidget {
   const PrivacyScreen({super.key});
 
@@ -53,7 +53,7 @@ class PrivacyScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'La política de privacidad de fasT se encuentra alojada en el repositorio releases.',
+              'La política de privacidad de fasT se encuentra alojada en el portfolio del desarrollador.',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: 24),
